@@ -1,0 +1,17 @@
+html,body{
+  background-color: #F2F2F2;
+  color: #333;
+}
+
+.pbottom20{
+  padding-bottom: 10px;
+}
+.p20{
+  padding: 20px;
+}
+.font14{
+  font-size: 14px;
+}
+.t666{
+  color: #666;
+}

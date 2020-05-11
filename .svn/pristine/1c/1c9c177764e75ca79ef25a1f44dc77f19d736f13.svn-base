@@ -1,0 +1,105 @@
+<template>
+  <div class="myMenu">
+    <el-row class="tac">
+      <el-col :span="24">
+        <el-menu
+          default-active="2"
+          class="el-menu-vertical-demo"
+          background-color="#20222A"
+          text-color="#fff"
+          router
+          active-text-color="#FB901C"
+        >
+          <h5>后台管理系统</h5>
+          <el-submenu
+            v-for="item of menu"
+            :index="item.id"
+            :key="item.id"
+          >
+            <template slot="title">
+              <i class="el-icon-location"></i>
+              <span>{{item.name}}</span>
+            </template>
+            <el-menu-item-group class="over-hide">
+              <el-menu-item
+                v-for="sub of item.sub"
+                :index="sub.componentName"
+                :key="sub.componentName"
+                @click="clickMenu(sub.name)"
+              >
+                {{sub.name}}
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+        </el-menu>
+      </el-col>
+    </el-row>
+  </div>
+</template>
+
+<script>
+import { MENUS } from '@/data/menusData.js';
+export default {
+  name: 'myMenu',
+  data() {
+    return {
+      menu: MENUS,
+      openedTab: [],
+    }
+  },
+  created() {
+    
+  },
+  methods: {
+    clickMenu (name) {
+      this.openedTab = this.$store.state.openedTab
+      // tabNum 为当前点击的列表项在openedTab中的index，若不存在则为-1
+      let tabNum = this.openedTab.indexOf(name)
+      
+      console.log(tabNum)
+      console.log(this.openedTab)
+      console.log(this.$store.state.openedTab)
+      if (tabNum === -1) {
+        // 该标签当前没有打开
+        // 将componentName加入到已打开标签页state.openedTab数组中
+        this.$store.commit('addTab', name)
+      } else {
+        // 该标签是已经打开过的，需要激活此标签页
+        this.$store.commit('changeTab', name)
+      }
+    }
+  },
+}
+</script>
+
+<style scoped lang="scss">
+  .myMenu {
+    width: 240px;
+    height: 100%;
+    background: #20222A;
+    padding-top: 49px;
+    box-sizing: border-box;
+    position: fixed;
+    left: 0;
+    overflow-y: scroll;
+    h5 {
+      width: 240px;
+      height: 49px;
+      line-height: 49px;
+      text-align: center;
+      background: #FB901C;
+      color: #fff;
+      margin: 0;
+      padding: 0 15px;
+      box-sizing: border-box;
+      font-size: 16px;
+      position: fixed;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 1px 2px 0 rgba(0,0,0,.15);
+    }
+    .el-menu {
+      border-right: 0;
+    }
+  }
+</style>

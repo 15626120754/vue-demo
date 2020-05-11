@@ -1,0 +1,126 @@
+<template>
+  <div class="myNavMenu">
+    <div class="inner">
+      <el-row class="block-col-2">
+        <el-col>
+          <el-dropdown>
+            <span class="el-dropdown-link">
+              admin<i class="el-icon-caret-bottom el-icon--right"></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item icon="el-icon-plus">黄金糕</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-circle-plus">狮子头</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-circle-plus-outline">螺蛳粉</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-check">双皮奶</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-circle-check">蚵仔煎</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </el-col>
+      </el-row>
+    </div>
+    <div class="tabs-box">
+      <el-tabs v-model="activeIndex" type="card" closable @tab-remove="removeTab(activeIndex, $event)" @tab-click="handleClick(activeIndex)">
+        <el-tab-pane 
+          v-for="item in editableTabs"
+          :key="item.path"
+          :label="item.name"
+          :name="item.path"
+        >
+          <span slot="label" v-if="item.name == '首页'"><i class="el-icon-s-home"></i></span>
+          <span slot="label" v-else>{{item.name}}</span>
+        </el-tab-pane>
+      </el-tabs>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'myNavMenu',
+  data() {
+    return {
+      activeIndex:'/',
+      tabIndex: 2,
+      editableTabs: this.$store.state.options
+    }
+  },
+  computed: {
+    //监听点击添加的数据
+    options() {
+      return this.unique(this.$store.state.options);
+    },
+    //监听路径
+    urlRoute() {
+      return  this.$store.state.urlRoute;
+    }
+  },
+  watch: {
+    //数据赋值给tab数组
+    options(arrVal) { 
+      this.editableTabs = arrVal;
+    },
+    //改变路径
+    urlRoute(url) {
+      this.activeIndex = url;
+      this.$router.push(url);
+    }
+  },
+  methods: {
+    //去重
+    unique(arr) {
+      const res = new Map();
+      return arr.filter((arr) => !res.has(arr.name) && res.set(arr.name, 1));
+    },
+    handleSelect(key, keyPath) {
+      console.log(key, keyPath);
+    },
+    handleClick(url) {
+      this.$router.push(url);
+    },
+    //删除标签
+    removeTab(targetName, path) {
+      console.log('targetName', targetName)
+      let tabs = this.editableTabs;
+      let activeName = this.activeIndex;
+      if (activeName === path) {
+        tabs.forEach((tab, index) => {
+          if (tab.path === path) {
+            let nextTab = tabs[index + 1] || tabs[index - 1];
+            if (nextTab) {
+              activeName = nextTab.path;
+            }
+          }
+        });
+      }
+      
+      this.activeIndex = activeName;
+      //过滤掉路径相同的对象
+      this.editableTabs = tabs.filter(tab => tab.path !== path);     
+      this.$store.commit('setUrlRoute', activeName);
+      this.$store.commit('deleteOptions', path);
+    }
+  },
+  created() {
+    this.$router.push('/');
+  }
+}
+</script>
+
+<style scoped lang="scss">
+  .myNavMenu {
+    width: 100%;
+    background: #fff;
+    cursor: pointer;
+    .el-dropdown-link {
+      padding-right: 20px;
+      box-sizing: border-box;
+    }
+    .inner {
+      width: 100%;
+      height: 50px;
+      line-height: 50px;
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+</style>

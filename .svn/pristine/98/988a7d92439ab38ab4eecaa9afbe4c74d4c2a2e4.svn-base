@@ -1,0 +1,18 @@
+export const MENUS = [{
+    name: '我的首页',
+    id: 'basic',
+    sub: [{
+      name: '我的文档',
+      componentName: 'about'
+    }]
+  }, {
+    name: '页面管理',
+    id: 'form',
+    sub: [{
+      name: '内容版块管理',
+      componentName: 'about3'
+    }, {
+      name: '网站页面管理',
+      componentName: 'about4'
+    }]
+}]

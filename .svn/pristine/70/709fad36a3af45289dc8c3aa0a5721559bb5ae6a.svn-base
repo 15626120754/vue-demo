@@ -1,0 +1,106 @@
+<template>
+  <div class="home">
+    <el-row :gutter="10">
+      <el-col class="pbottom20" :xs="24" :md="6" :sm="12">
+        <div class="grid-content bg-purple">
+          <el-card class="box-card">
+            <div slot="header" class="clearfix">
+              <span>每日访问量</span>
+            </div>
+            <div class="acountNum">789</div>
+          </el-card>
+        </div>
+      </el-col>
+      <el-col class="pbottom20" :xs="24" :md="6" :sm="12">
+        <div class="grid-content bg-purple">
+          <el-card class="box-card">
+            <div slot="header" class="clearfix">
+              <span>周访问量</span>
+            </div>
+            <div class="acountNum">789</div>
+          </el-card>
+        </div>
+      </el-col>
+      <el-col class="pbottom20" :xs="24" :md="6" :sm="12">
+        <div class="grid-content bg-purple">
+          <el-card class="box-card">
+            <div slot="header" class="clearfix">
+              <span>月访问量</span>
+            </div>
+            <div class="acountNum">789</div>
+          </el-card>
+        </div>
+      </el-col>
+      <el-col class="pbottom20" :xs="24" :md="6" :sm="12">
+        <div class="grid-content bg-purple">
+          <el-card class="box-card">
+            <div slot="header" class="clearfix">
+              <span>活跃用户</span>
+            </div>
+            <div class="acountNum">789</div>
+          </el-card>
+        </div>
+      </el-col>
+    </el-row>
+    <el-col class="pbottom20" :xs="24" :md="24" :sm="24">
+      <div class="grid-content bg-purple">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>活跃用户排行表</span>
+          </div>
+          <el-row>
+            <el-col>
+              <div ref="tu" class="echarts-tu"></div>
+            </el-col>
+          </el-row>
+        </el-card>
+      </div>
+    </el-col>
+    
+  </div>
+</template>
+
+<script>
+import echarts from 'echarts';
+export default {
+  name: 'Home',
+  created() {
+    // eslint-disable-next-line no-debugger
+  },
+  methods: {
+    init() {
+      let myChart = echarts.init(this.$refs.tu)
+      myChart.setOption({
+        title: {
+          text: 'ECharts 入门示例'
+        },
+        tooltip: {},
+        xAxis: {
+          data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+        },
+        yAxis: {},
+        series: [{
+          name: '销量',
+          type: 'bar',
+          data: [5, 20, 36, 10, 10, 20]
+        }]
+      });
+    }
+  },
+  mounted() {
+    this.init();
+  }
+}
+</script>
+
+<style scoped lang="scss">
+.home{
+  .acountNum{
+    font-size: 30px;
+  }
+  .echarts-tu{
+    height: 500px;
+    width: 100%;
+  }
+}
+</style>

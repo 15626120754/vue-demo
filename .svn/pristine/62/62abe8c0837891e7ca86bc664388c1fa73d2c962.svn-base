@@ -1,0 +1,237 @@
+<template>
+  <div class="home">
+    <el-row :gutter="10">
+      <el-col class="pbottom20" :xs="24" :md="6" :sm="12">
+        <div class="grid-content bg-purple">
+          <el-card class="box-card">
+            <div slot="header" class="clearfix">
+              <span>每日访问量</span>
+            </div>
+            <div class="acountNum">789</div>
+          </el-card>
+        </div>
+      </el-col>
+      <el-col class="pbottom20" :xs="24" :md="6" :sm="12">
+        <div class="grid-content bg-purple">
+          <el-card class="box-card">
+            <div slot="header" class="clearfix">
+              <span>周访问量</span>
+            </div>
+            <div class="acountNum">789</div>
+          </el-card>
+        </div>
+      </el-col>
+      <el-col class="pbottom20" :xs="24" :md="6" :sm="12">
+        <div class="grid-content bg-purple">
+          <el-card class="box-card">
+            <div slot="header" class="clearfix">
+              <span>月访问量</span>
+            </div>
+            <div class="acountNum">789</div>
+          </el-card>
+        </div>
+      </el-col>
+      <el-col class="pbottom20" :xs="24" :md="6" :sm="12">
+        <div class="grid-content bg-purple">
+          <el-card class="box-card">
+            <div slot="header" class="clearfix">
+              <span>活跃用户</span>
+            </div>
+            <div class="acountNum">789</div>
+          </el-card>
+        </div>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col class="pbottom20" :xs="24" :md="24" :sm="24">
+        <div class="grid-content bg-purple">
+          <el-card class="box-card">
+            <div slot="header" class="clearfix">
+              <span>活跃用户排行表</span>
+            </div>
+            <el-row :gutter="10">
+              <el-col :span="14">
+                <ve-line :data="chartData" :grid="grid"></ve-line>
+                <!-- <div ref="tu" class="echarts-tu"></div> -->
+              </el-col>
+              <el-col :span="10">
+                <p>访问量</p>
+                <div class="font14 t666">月访问量</div>
+                <el-progress :text-inside="true" :stroke-width="26" :percentage="70"></el-progress>
+                <p>访问量</p>
+                <div class="font14 t666">周访问量</div>
+                <el-progress :text-inside="true" :stroke-width="26" :percentage="70"></el-progress>
+                <p>访问量</p>
+                <div class="font14 t666">日访问量</div>
+                <el-progress :text-inside="true" :stroke-width="26" :percentage="70"></el-progress>
+              </el-col>
+            </el-row>
+          </el-card>
+        </div>
+      </el-col>
+    </el-row>
+    <el-row :gutter="10">
+      <el-col :md="8" :sm="8" :xs="24">
+        <el-card class="box-card">
+          <el-table
+            :data="tableData"
+            border
+            style="width: 100%">
+            <el-table-column
+              prop="date"
+              label="日期"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="name"
+              label="姓名"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="address"
+              label="地址">
+            </el-table-column>
+          </el-table>
+        </el-card>
+      </el-col>
+      <el-col :md="8" :sm="8" :xs="24">
+        <el-card class="box-card">
+          <el-table
+            :data="tableData"
+            border
+            style="width: 100%">
+            <el-table-column
+              prop="date"
+              label="日期"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="name"
+              label="姓名"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="address"
+              label="地址">
+            </el-table-column>
+          </el-table>
+        </el-card>
+      </el-col>
+      <el-col :md="8" :sm="8" :xs="24">
+        <el-card class="box-card">
+          <el-table
+            :data="tableData"
+            border
+            style="width: 100%">
+            <el-table-column
+              prop="date"
+              label="日期"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="name"
+              label="姓名"
+              >
+            </el-table-column>
+            <el-table-column
+              prop="address"
+              label="地址">
+            </el-table-column>
+          </el-table>
+        </el-card>
+      </el-col>
+    </el-row>
+  </div>
+</template>
+
+<script>
+import echarts from 'echarts';
+export default {
+  name: 'Home',
+  data() {
+    return {
+      tableData: [{
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-04',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1517 弄'
+      }, {
+        date: '2016-05-01',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1519 弄'
+      }, {
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1516 弄'
+      }],
+      grid: {
+        show: true
+      },
+      // yAxis: {
+      //   // show: true
+      // },
+      chartData: {
+        columns: ['姓名', '访问量', '人数'],
+        rows: [
+          { '姓名': '彩种详情', '访问量': 1523, '人数': 1231 },
+          { '姓名': '首页', '访问量': 1223, '人数': 2523 },
+          { '姓名': '历史开奖', '访问量': 2123, '人数': 1000 },
+          { '姓名': '走势', '访问量': 4123, '人数': 3223 },
+          { '姓名': '推荐计划', '访问量': 3123, '人数': 3023 },
+          { '姓名': '长龙', '访问量': 7123, '人数': 5523 }
+        ]
+      }
+    }
+  },
+  created() {
+    // eslint-disable-next-line no-debugger
+  },
+  methods: {
+    init() {
+      let myChart = echarts.init(this.$refs.tu)
+      myChart.setOption({
+        legend: {
+          data: ['销量']
+        },
+        xAxis: {
+          data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子'],
+          axisLine: {
+            show: true,
+          }
+        },
+        yAxis: {
+          type: 'value',
+          min: 0,
+          axisLine: {
+            show: true,
+          }
+        },
+        series: [{
+          name: '销量',
+          type: 'line',
+          data: [5, 20, 36, 10, 10, 20]
+        }],
+        
+      });
+    }
+  },
+  mounted() {
+    // this.init();
+  }
+}
+</script>
+
+<style scoped lang="scss">
+.home{
+  .acountNum{
+    font-size: 30px;
+  }
+  .echarts-tu{
+    height: 500px;
+    width: 100%;
+  }
+}
+</style>
