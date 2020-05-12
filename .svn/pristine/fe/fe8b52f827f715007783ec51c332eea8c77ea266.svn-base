@@ -93,7 +93,7 @@ export default {
                         }
                         that.loading = false;
                         that.$root.$children[0].isShow = true;
-                        that.$router.replace('/Home');
+                        that.$router.push('/Home');
                     }else{
                         that.$message({
                             showClose: true,

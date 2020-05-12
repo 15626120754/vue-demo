@@ -42,10 +42,9 @@ routerMethods.forEach(method => {
 
 router.beforeEach((to, from, next) => {
   if (getUserInfo().isLogin){
-    to.meta.isLogin = true;
     next();
   }else{
-    to.meta.isLogin = false;
+    console.log(to);
     if(to.path !== '/'){
       next({
         path: '/'
