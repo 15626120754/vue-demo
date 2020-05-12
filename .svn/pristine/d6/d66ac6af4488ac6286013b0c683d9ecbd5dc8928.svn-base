@@ -3,13 +3,16 @@
     <div class="inner">
       <el-row class="block-col-2">
         <el-col>
-          <el-dropdown @command="handleCommand">
+          <el-dropdown>
             <span class="el-dropdown-link">
               admin<i class="el-icon-caret-bottom el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item icon="el-icon-key" command="psw">修改密码</el-dropdown-item>
-              <el-dropdown-item icon="el-icon-switch-button" command="loginOut" divided>退出登录</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-plus">黄金糕</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-circle-plus">狮子头</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-circle-plus-outline">螺蛳粉</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-check">双皮奶</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-circle-check">蚵仔煎</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </el-col>
@@ -32,7 +35,6 @@
 </template>
 
 <script>
-import Cookies from 'js-cookie';
 export default {
   name: 'myNavMenu',
   data() {
@@ -96,18 +98,6 @@ export default {
       this.editableTabs = tabs.filter(tab => tab.path !== path);     
       this.$store.commit('setUrlRoute', activeName);
       this.$store.commit('deleteOptions', path);
-    },
-    handleCommand(params) {
-      console.log(params)
-      // eslint-disable-next-line no-debugger
-      // debugger
-      //退出登录密码
-      if(params == 'loginOut') {
-        Cookies.remove('userInfo');
-        this.$router.push('/');
-      } else if(params == 'psw') {
-        console.log('修改密码');
-      }
     }
   },
   created() {

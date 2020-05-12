@@ -3,13 +3,13 @@
     <div class="inner">
       <el-row class="block-col-2">
         <el-col>
-          <el-dropdown @command="handleCommand">
+          <el-dropdown @command="dropdownEvents">
             <span class="el-dropdown-link">
               admin<i class="el-icon-caret-bottom el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item icon="el-icon-key" command="psw">修改密码</el-dropdown-item>
-              <el-dropdown-item icon="el-icon-switch-button" command="loginOut" divided>退出登录</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-switch-button" command="loginOut">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </el-col>
@@ -97,11 +97,10 @@ export default {
       this.$store.commit('setUrlRoute', activeName);
       this.$store.commit('deleteOptions', path);
     },
-    handleCommand(params) {
+    dropdownEvents(params) {
       console.log(params)
       // eslint-disable-next-line no-debugger
       // debugger
-      //退出登录密码
       if(params == 'loginOut') {
         Cookies.remove('userInfo');
         this.$router.push('/');

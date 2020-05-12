@@ -21,7 +21,6 @@
 <script>
 import myMenu from '@/components/menu.vue';
 import navMenu from '@/components/navMenu.vue';
-import { getUserInfo } from '@/data/common.js';
 export default {
   components: {
     myMenu,
@@ -29,14 +28,11 @@ export default {
   },
   data() {
     return {
-      isShow: false
+      isShow: true
     }
   },
   created(){
-    let isLogin = getUserInfo().isLogin;
-    if(isLogin){
-      this.isShow = true;
-    }
+
   },
   methods: {
     

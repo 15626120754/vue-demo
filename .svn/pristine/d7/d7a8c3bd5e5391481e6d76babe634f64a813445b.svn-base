@@ -22,7 +22,7 @@
 <script>
 
 import { login } from '@/api/getApi.js';
-import { setCookoes, getCookoes} from '@/data/common.js';
+import { setCookoes } from '@/data/common.js';
 import md5 from 'js-md5';
 export default {
   name: 'login',
@@ -45,7 +45,6 @@ export default {
     }
     };
     return {
-        clickTrue: false,
         ruleForm: {
             username: '',
             password: ''
@@ -62,17 +61,10 @@ export default {
     }
   },
   created(){
-      let rememberData = getCookoes('remember');
-      if(rememberData){
-          this.ruleForm = rememberData;
-          this.checked = true;
-      }
   },
   methods:{
     submitForm(formName) {
         let that = this;
-        if(that.clickTrue) return;
-        that.clickTrue = true;
         that.$refs[formName].validate((valid) => {
             if (valid) {
                 login({
@@ -80,28 +72,18 @@ export default {
                     username:that.ruleForm.username,
                     userpass:md5(that.ruleForm.password)
                 }).then((res)=>{
-                    that.clickTrue = false;
                     if(res.IsSuccess){
-                        let {UserID, UserName, Email, Mobile, Gender, RecentLoginTime, LoginTimes, LoginSession} = res.Content;
+                        var {UserID, UserName, Email, Mobile, Gender, RecentLoginTime, LoginTimes, LoginSession} = res.Content;
                         setCookoes('userInfo', {UserID, UserName, Email, Mobile, Gender, RecentLoginTime, LoginTimes, LoginSession});
-                        if(that.checked){
-                            setCookoes('remember', {username:that.ruleForm.username,password:that.ruleForm.password});
-                        }else{
-                            setCookoes('remember', false);
-                        }
-                        this.$root.$children[0].isShow = true;
-                        that.$router.push('/Home');
-                    }else{
-                        this.$message({
-                            showClose: true,
-                            message: res.ErrorMsg,
-                            type: 'error'
+                        that.$message({
+                            message: '登录成功',
+                            type: 'success'
                         });
+                        that.$router.push('/Home');
                     }
                 })
             } else {
                 console.log('error submit!!');
-                that.clickTrue = false;
                 return false;
             }
         });

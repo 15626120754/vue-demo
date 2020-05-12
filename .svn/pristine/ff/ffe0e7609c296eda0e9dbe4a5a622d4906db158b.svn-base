@@ -1,27 +1,21 @@
 <template>
   <div id="app">
-    <!-- <template v-if="$route.meta.menu">
-      <router-view class="p20" />  
+    <template v-if="$route.meta.menu">
+      <router-view class="p20 b" />  
     </template>
     <template v-if="$route.meta.menu === false">
       <myMenu></myMenu>
       <div class="pages-menu">
         <navMenu :menuVal="menuVal"></navMenu>
-        <router-view class="p20" />  
+        <router-view class="p20 d" />  
       </div>
-    </template> -->
-    <myMenu v-if="isShow"></myMenu>
-    <div class="pages-menu">
-      <navMenu v-if="isShow"></navMenu>
-      <router-view class="p20" />  
-    </div>
+    </template>
   </div>
 </template>
 
 <script>
 import myMenu from '@/components/menu.vue';
 import navMenu from '@/components/navMenu.vue';
-import { getUserInfo } from '@/data/common.js';
 export default {
   components: {
     myMenu,
@@ -29,20 +23,17 @@ export default {
   },
   data() {
     return {
-      isShow: false
+      menuVal: ''
     }
   },
   created(){
-    let isLogin = getUserInfo().isLogin;
-    if(isLogin){
-      this.isShow = true;
-    }
   },
   methods: {
     
   },
   mounted(){
     
+    console.log(this.$route.meta.menu)
   }
 }
 </script>
